@@ -137,11 +137,13 @@ def check_paper(image_path):
 
 
         if eval(eq):
-            cv2.putText(clone, eq, (i[0][0], i[1][1]), font, .7, green, 1, cv2.LINE_AA)
+            # cv2.putText(clone, eq.replace("==", "="), (i[0][0], i[1][1]), font, .7, green, 1, cv2.LINE_AA)
+            cv2.putText(clone, np.random.choice(correct_messages), (i[0][0], i[1][1]), font, .7, green, 1, cv2.LINE_AA)
             # cv2.rectangle(clone,i[0],i[1],green,1)
             score += 1
         else:
-            cv2.putText(clone, eq, (i[0][0], i[1][1]), font, .7, red, 1, cv2.LINE_AA)
+            # cv2.putText(clone, eq.replace("==", "="), (i[0][0], i[1][1]), font, .7, red, 1, cv2.LINE_AA)
+            cv2.putText(clone, 'try again', (i[0][0], i[1][1]), font, .7, red, 1, cv2.LINE_AA)
             # cv2.rectangle(clone,i[0],i[1],red,1)
 
 

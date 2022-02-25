@@ -3,11 +3,14 @@ from flask import Flask, flash, request, redirect, url_for, render_template
 import urllib.request
 import os
 from werkzeug.utils import secure_filename
+from flask import Markup
+
  
 from inference import check_paper
 
 app = Flask(__name__)
- 
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
 UPLOAD_FOLDER = 'static/uploads/'
  
 app.secret_key = "secret key"
@@ -40,8 +43,11 @@ def upload_image():
         # print(filename)
 
         items, score = check_paper(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        # items=3
+        # score =2
+        ccode = 'green' if score/items > .5 else 'red'
 
-        flash(f'You got {score} out of {items} correct!')
+        flash(Markup(f'You got <span style="color:{ccode}"> {score} out of {items} </span>correct!'))
         return render_template('index.html', filename=filename)
     else:
         flash('Allowed image types are - png, jpg, jpeg, gif')
@@ -52,7 +58,14 @@ def display_image(filename):
     #print('display_image filename: ' + filename)
     return redirect(url_for('static', filename='checked/' + filename), code=301)
     # return redirect(url_for('checked', filename=filename), code=301)
- 
+
+@app.route('/display2/<filename>')
+def display_image2(filename):
+    #print('display_image filename: ' + filename)
+    return redirect(url_for('static', filename='uploads/' + filename), code=301)
+    # return redirect(url_for('checked', filename=filename), code=301)
+
+
 # if __name__ == "__main__":
 #     app.run(host="0.0.0.0")
 
