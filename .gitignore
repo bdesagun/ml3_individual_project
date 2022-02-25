@@ -1,0 +1,5 @@
+__pycache__
+bin/__pycache__
+equals_img/
+data/
+.DS_Store
