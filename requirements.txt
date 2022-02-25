@@ -1,0 +1,7 @@
+tensorflow==2.8.0
+opencv-python==4.5.5.62
+matplotlib
+numpy
+Pillow==8.4.0
+keras==2.8.0
+Keras-Preprocessing==1.1.2
